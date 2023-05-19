@@ -8,10 +8,12 @@ package MyApp;
 import java.awt.Color;
 import internalPage.Dashboard;
 import internalPage.accounts;
+import internalPage.add;
+import internalPage.allUserdata;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
-import userPage.User;
+import userPage.timesheetLog;
 ;
 
 /**
@@ -31,7 +33,7 @@ public class FirstFrame extends javax.swing.JFrame {
     }
     Color navcolor = new Color(22, 123, 123);
     Color headcolor = new Color(0, 102, 102);
-    Color bodycolor = new Color(153,255,204);
+    Color bodycolor = new Color(204,255,204);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,6 +58,10 @@ public class FirstFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         dashpane1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        add = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        REP = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         body = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -131,13 +137,13 @@ public class FirstFrame extends javax.swing.JFrame {
         });
         dashpane2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("USER PAGE");
-        dashpane2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 17, 90, 40));
+        dashpane2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 90, 20));
 
         navbar.add(dashpane2);
-        dashpane2.setBounds(20, 390, 90, 70);
+        dashpane2.setBounds(10, 340, 110, 70);
 
         dashpane.setBackground(new java.awt.Color(204, 255, 204));
         dashpane.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -154,13 +160,13 @@ public class FirstFrame extends javax.swing.JFrame {
         });
         dashpane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText(" DASHBOARD");
-        dashpane.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 90, 40));
+        dashpane.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 90, 30));
 
         navbar.add(dashpane);
-        dashpane.setBounds(20, 190, 90, 70);
+        dashpane.setBounds(10, 70, 110, 70);
 
         LogOut.setBackground(new java.awt.Color(204, 255, 204));
         LogOut.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -200,13 +206,59 @@ public class FirstFrame extends javax.swing.JFrame {
         });
         dashpane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText(" ACCOUNTS");
-        dashpane1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 90, 30));
+        dashpane1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 90, 20));
 
         navbar.add(dashpane1);
-        dashpane1.setBounds(20, 300, 90, 60);
+        dashpane1.setBounds(10, 260, 110, 60);
+
+        add.setBackground(new java.awt.Color(204, 255, 204));
+        add.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                addMouseExited(evt);
+            }
+        });
+        add.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("MANAGE EMPLOYEE");
+        add.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 110, 30));
+
+        navbar.add(add);
+        add.setBounds(10, 180, 110, 60);
+
+        REP.setBackground(new java.awt.Color(204, 255, 204));
+        REP.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        REP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                REPMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                REPMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                REPMouseExited(evt);
+            }
+        });
+        REP.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("REPORTS");
+        REP.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 90, 20));
+
+        navbar.add(REP);
+        REP.setBounds(10, 430, 110, 60);
 
         background.add(navbar);
         navbar.setBounds(0, 0, 130, 640);
@@ -314,7 +366,7 @@ public class FirstFrame extends javax.swing.JFrame {
 
     private void dashpane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashpane2MouseClicked
        this.dispose();
-       User us = new User();
+        timesheetLog us = new timesheetLog();
        us.setVisible(true);
     }//GEN-LAST:event_dashpane2MouseClicked
 
@@ -325,6 +377,33 @@ public class FirstFrame extends javax.swing.JFrame {
     private void dashpane2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashpane2MouseExited
        dashpane2.setBackground(bodycolor);
     }//GEN-LAST:event_dashpane2MouseExited
+
+    private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
+       add ac = new add();
+       body.add(ac).setVisible(true);
+    }//GEN-LAST:event_addMouseClicked
+
+    private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
+    add.setBackground(navcolor);
+    }//GEN-LAST:event_addMouseEntered
+
+    private void addMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseExited
+      add.setBackground(bodycolor);
+    }//GEN-LAST:event_addMouseExited
+
+    private void REPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REPMouseClicked
+   
+       allUserdata ac = new allUserdata();
+       body.add(ac).setVisible(true);
+    }//GEN-LAST:event_REPMouseClicked
+
+    private void REPMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REPMouseEntered
+       REP.setBackground(navcolor);
+    }//GEN-LAST:event_REPMouseEntered
+
+    private void REPMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REPMouseExited
+       REP.setBackground(bodycolor);
+    }//GEN-LAST:event_REPMouseExited
 
     /**
      * @param args the command line arguments
@@ -364,6 +443,8 @@ public class FirstFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel LogOut;
+    private javax.swing.JPanel REP;
+    private javax.swing.JPanel add;
     private javax.swing.JPanel background;
     public static javax.swing.JDesktopPane body;
     private javax.swing.JLabel close;
@@ -375,6 +456,8 @@ public class FirstFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel minimize;
     private javax.swing.JPanel navbar;

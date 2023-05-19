@@ -7,8 +7,13 @@ package internalPage;
 
 import static MyApp.FirstFrame.body;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
+import newpackage.dbconnector;
 
 /**
  *
@@ -21,6 +26,8 @@ public class Dashboard extends javax.swing.JInternalFrame {
      */
     public Dashboard() {
         initComponents();
+        displayData();
+        displayDataemp();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
@@ -28,8 +35,37 @@ public class Dashboard extends javax.swing.JInternalFrame {
     }
     Color navcolor = new Color(22, 123, 123);
     Color headcolor = new Color(0, 102, 102);
-    Color bodycolor = new Color(204, 204, 204);
+    Color bodycolor = new Color(204,255,204);
+     public void displayDataemp() {
 
+        try {
+
+            dbconnector dbc = new dbconnector();
+            ResultSet rs = dbc.getData("SELECT hris_emp.emp_id,hris_emp.emp_fname,hris_emp.emp_lname,timeinput.T_date, timeinput.T_in,timeinput.T_out FROM hris_emp INNER JOIN timeinput ON hris_emp.emp_id = timeinput.Ts_id");
+            viewTable.setModel(DbUtils.resultSetToTableModel(rs));
+      DefaultTableModel model = (DefaultTableModel) viewTable.getModel();
+    String[] columnIdentifiers = {"ID", "Lastname", "Name", "Date","Time In","Time Out"};
+    model.setColumnIdentifiers(columnIdentifiers);
+        } catch (SQLException ex) {
+            System.out.println("Error Message: " + ex);
+
+        }
+    }
+ public void displayData() {
+
+        try {
+
+            dbconnector dbc = new dbconnector();
+            ResultSet rs = dbc.getData("SELECT * FROM hris_emp");
+            table.setModel(DbUtils.resultSetToTableModel(rs));
+ DefaultTableModel model = (DefaultTableModel) table.getModel();
+    String[] columnIdentifiers = {"ID", "Name", "Lastname", "Position","Address","Status", "Gender"};
+    model.setColumnIdentifiers(columnIdentifiers);
+        } catch (SQLException ex) {
+            System.out.println("Error Message: " + ex);
+
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,27 +78,10 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        adminP = new javax.swing.JLabel();
-        adBio = new javax.swing.JTextField();
-        adName = new javax.swing.JTextField();
-        adID = new javax.swing.JTextField();
-        adGen = new javax.swing.JTextField();
-        adStatus = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        viewTable = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 204));
         jPanel1.setLayout(null);
@@ -74,159 +93,49 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("HUMAN RESOURCE INFORMATION SYSTEM");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(10, 10, 550, 40);
+        jLabel1.setBounds(90, 20, 550, 40);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(260, 10, 580, 140);
+        jPanel2.setBounds(0, 0, 860, 70);
 
-        jPanel4.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Lastname", "Position", "Address", "Status", "Gender"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel4MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel4MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPanel4MouseExited(evt);
+                tableMouseClicked(evt);
             }
         });
-        jPanel4.setLayout(null);
+        jScrollPane1.setViewportView(table);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/1.3.PNG"))); // NOI18N
-        jPanel4.add(jLabel2);
-        jLabel2.setBounds(20, 60, 160, 130);
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 90, 400, 402);
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("MANAGE USER");
-        jPanel4.add(jLabel6);
-        jLabel6.setBounds(20, 220, 150, 40);
+        viewTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jPanel1.add(jPanel4);
-        jPanel4.setBounds(260, 180, 190, 270);
-
-        jPanel5.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel5MouseClicked(evt);
+            },
+            new String [] {
+                "ID", "Lastname", "Name", "Date", "Time In", "Time Out"
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel5MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPanel5MouseExited(evt);
-            }
-        });
-        jPanel5.setLayout(null);
+        ));
+        jScrollPane2.setViewportView(viewTable);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/1.6.PNG"))); // NOI18N
-        jPanel5.add(jLabel3);
-        jLabel3.setBounds(30, 40, 150, 170);
-
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel7.setText("REPORTS");
-        jPanel5.add(jLabel7);
-        jLabel7.setBounds(50, 220, 100, 40);
-
-        jPanel1.add(jPanel5);
-        jPanel5.setBounds(460, 180, 180, 270);
-
-        jPanel6.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel6MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel6MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPanel6MouseExited(evt);
-            }
-        });
-        jPanel6.setLayout(null);
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/1.5.PNG"))); // NOI18N
-        jPanel6.add(jLabel4);
-        jLabel4.setBounds(10, 30, 170, 190);
-
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("SETTINGS");
-        jPanel6.add(jLabel8);
-        jLabel8.setBounds(50, 220, 100, 40);
-
-        jPanel1.add(jPanel6);
-        jPanel6.setBounds(650, 180, 190, 270);
-
-        jPanel11.setBackground(new java.awt.Color(51, 255, 255));
-        jPanel11.setLayout(null);
-
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel10.setText("  Username:");
-        jPanel11.add(jLabel10);
-        jLabel10.setBounds(5, 200, 80, 30);
-
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel11.setText(" ID:");
-        jPanel11.add(jLabel11);
-        jLabel11.setBounds(10, 240, 40, 30);
-
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setText("Gender:");
-        jPanel11.add(jLabel12);
-        jLabel12.setBounds(10, 280, 80, 30);
-
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel13.setText("Bio:");
-        jPanel11.add(jLabel13);
-        jLabel13.setBounds(10, 370, 50, 30);
-
-        adminP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/1.3.PNG"))); // NOI18N
-        jPanel11.add(adminP);
-        adminP.setBounds(20, 10, 160, 170);
-
-        adBio.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jPanel11.add(adBio);
-        adBio.setBounds(70, 369, 150, 110);
-
-        adName.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jPanel11.add(adName);
-        adName.setBounds(100, 200, 120, 30);
-
-        adID.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        adID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adIDActionPerformed(evt);
-            }
-        });
-        jPanel11.add(adID);
-        adID.setBounds(100, 240, 120, 30);
-
-        adGen.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        adGen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adGenActionPerformed(evt);
-            }
-        });
-        jPanel11.add(adGen);
-        adGen.setBounds(100, 280, 120, 30);
-
-        adStatus.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jPanel11.add(adStatus);
-        adStatus.setBounds(100, 330, 120, 30);
-
-        jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel14.setText("Status:");
-        jPanel11.add(jLabel14);
-        jLabel14.setBounds(10, 330, 60, 30);
-
-        jPanel1.add(jPanel11);
-        jPanel11.setBounds(10, 10, 230, 490);
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(420, 90, 430, 400);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -244,81 +153,18 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPanel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseEntered
-        jPanel6.setBackground(navcolor);
-    }//GEN-LAST:event_jPanel6MouseEntered
-
-    private void jPanel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseExited
-        jPanel6.setBackground(bodycolor);
-    }//GEN-LAST:event_jPanel6MouseExited
-
-    private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
-        jPanel5.setBackground(navcolor);
-    }//GEN-LAST:event_jPanel5MouseEntered
-
-    private void jPanel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseExited
-        jPanel5.setBackground(bodycolor);
-    }//GEN-LAST:event_jPanel5MouseExited
-
-    private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
-        jPanel4.setBackground(navcolor);
-    }//GEN-LAST:event_jPanel4MouseEntered
-
-    private void jPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseExited
-        jPanel4.setBackground(bodycolor);
-    }//GEN-LAST:event_jPanel4MouseExited
-
-    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        set st = new set();
-        this.dispose();
-        body.add(st).setVisible(true);
-    }//GEN-LAST:event_jPanel6MouseClicked
-
-    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        allUserdata rp = new allUserdata();
-        this.dispose();
-        body.add(rp).setVisible(true);
-    }//GEN-LAST:event_jPanel5MouseClicked
-
-    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        manageUser ms = new manageUser();
-        this.dispose();
-        body.add(ms).setVisible(true);
-    }//GEN-LAST:event_jPanel4MouseClicked
-
-    private void adGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adGenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adGenActionPerformed
-
-    private void adIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adIDActionPerformed
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+   
+    }//GEN-LAST:event_tableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JTextField adBio;
-    public static javax.swing.JTextField adGen;
-    public static javax.swing.JTextField adID;
-    public static javax.swing.JTextField adName;
-    public static javax.swing.JTextField adStatus;
-    public static javax.swing.JLabel adminP;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable table;
+    private javax.swing.JTable viewTable;
     // End of variables declaration//GEN-END:variables
 }

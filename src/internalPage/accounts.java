@@ -11,7 +11,8 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 import newpackage.dbconnector;
-
+import java.text.*;
+import javax.swing.*;
 /**
  *
  * @author Hp
@@ -35,7 +36,9 @@ public class accounts extends javax.swing.JInternalFrame {
             dbconnector dbc = new dbconnector();
             ResultSet rs = dbc.getData("SELECT * FROM tbl_acc");
             viewTable.setModel(DbUtils.resultSetToTableModel(rs));
-
+ DefaultTableModel model = (DefaultTableModel) viewTable.getModel();
+    String[] columnIdentifiers = {"ID", "Name", "Lastname", "Username", "Password", "Address","Email", "Gender", "Poistion", "Nationality", "DoBirth", "Status"};
+    model.setColumnIdentifiers(columnIdentifiers);
         } catch (SQLException ex) {
             System.out.println("Error Message: " + ex);
 
@@ -55,9 +58,9 @@ public class accounts extends javax.swing.JInternalFrame {
         jPanel8 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         viewTable = new javax.swing.JTable();
+        jButton4 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 204));
         jPanel1.setLayout(null);
@@ -70,9 +73,9 @@ public class accounts extends javax.swing.JInternalFrame {
 
         jLabel6.setBackground(new java.awt.Color(153, 255, 204));
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel6.setText("ALL USER DATA");
+        jLabel6.setText("ALL ACCOUNTS");
         jPanel8.add(jLabel6);
-        jLabel6.setBounds(100, 20, 330, 40);
+        jLabel6.setBounds(100, 20, 300, 40);
 
         jPanel2.add(jPanel8);
         jPanel8.setBounds(230, 20, 470, 70);
@@ -82,16 +85,32 @@ public class accounts extends javax.swing.JInternalFrame {
         jLabel4.setText("HUMAN RESOURCE INFOMATION SYSTEM");
         jPanel2.add(jLabel4);
         jLabel4.setBounds(230, 100, 470, 22);
-        jPanel2.add(jLabel11);
-        jLabel11.setBounds(30, 0, 190, 140);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 870, 150);
 
+        viewTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "NAME", "LASTNAME", "USERNAME", "ADDRESS", "EMAIL", "GENDER", "POSITION", "NATIONALITY", "DATE OF BIRTH", "STATUS"
+            }
+        ));
         jScrollPane1.setViewportView(viewTable);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(40, 190, 800, 340);
+        jScrollPane1.setBounds(0, 200, 850, 330);
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton4.setText("print");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4);
+        jButton4.setBounds(715, 160, 100, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,9 +126,22 @@ public class accounts extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        MessageFormat head = new MessageFormat("USERS");
+        MessageFormat FOOT = new MessageFormat("Page{0, number , integer}");
+
+        try {
+            viewTable.print(JTable.PrintMode.NORMAL, head, FOOT);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "cannot print");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

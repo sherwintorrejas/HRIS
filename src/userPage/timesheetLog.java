@@ -42,7 +42,14 @@ public class timesheetLog extends javax.swing.JFrame {
             System.err.println("Cannot connect to database: " + e.getMessage());
         }
     }
-    
+    public boolean val(){
+    String search = searchData.getText();
+    if(search.equals("")){
+    JOptionPane.showMessageDialog(this, "PLEASE ENTER EMPLOYEE ID");
+      return  false;
+    }
+    return true;
+    }
     int validateRegister() {
         int result;
         if ( jTimeIn.getText().isEmpty() || jTimeOut.getText().isEmpty()) {
@@ -320,7 +327,7 @@ public class timesheetLog extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseExited
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        User us = new User();
+        FirstFrame us = new FirstFrame();
         this.dispose();
         us.setVisible(true);
 
@@ -362,11 +369,12 @@ public class timesheetLog extends javax.swing.JFrame {
             int result = dbc.insertData("INSERT INTO timeinput (Ts_id,T_date,T_in,T_out,T_id)VALUES('"+searchData.getText() + "','" + DateChooser.getDate() + "','" + jTimeIn.getText() + "','" + jTimeOut.getText() + "','" + searchData.getText() +"')");
             if (result == 1) {
                 JOptionPane.showMessageDialog(null, "SUCCESSFULLY SAVE!");
-                 User us = new User();
+                 FirstFrame us = new FirstFrame();
         this.dispose();
         us.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Saving data failed!");           
+                JOptionPane.showMessageDialog(null, "Saving data failed!");
+                JOptionPane.showMessageDialog(null, "all fields are required!"); 
             }
         } else {
             JOptionPane.showMessageDialog(null, "all fields are required!");
@@ -380,8 +388,9 @@ public class timesheetLog extends javax.swing.JFrame {
     }//GEN-LAST:event_searchDataActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-             try {
-            pst = con.prepareStatement("SELECT emp_lname, emp_Name FROM tbl_emp WHERE emp_id=?");
+        if(val()==true){ 
+        try {
+            pst = con.prepareStatement("SELECT emp_lname, emp_fname FROM hris_emp WHERE emp_id=?");
             int id = Integer.parseInt(searchData.getText());
             pst.setInt(1, id);
             ResultSet rs1 = pst.executeQuery();
@@ -397,6 +406,7 @@ public class timesheetLog extends javax.swing.JFrame {
         } catch (SQLException ex) {
           JOptionPane.showMessageDialog(null, ex);
         }
+         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void lnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lnameActionPerformed

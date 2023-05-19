@@ -5,7 +5,6 @@
  */
 package MyApp;
 
-import static internalPage.manageUser.table;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
@@ -41,23 +40,6 @@ public class RegisterForm extends javax.swing.JFrame {
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
     }
-
-    public void displayData() {
-
-        try {
-
-            dbconnector dbc = new dbconnector();
-            ResultSet rs = dbc.getData("SELECT * FROM brgy_emp");
-            table.setModel(DbUtils.resultSetToTableModel(rs));
-
-        } catch (SQLException ex) {
-            System.out.println("Error Message: " + ex);
-
-        }
-    }
-
-   
-
     public  String doHashing(String password) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("md5");

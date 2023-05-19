@@ -5,10 +5,11 @@
  */
 package internalPage;
 
-import static internalPage.manageUser.table;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.*;
 import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
@@ -30,7 +31,7 @@ public class allUserdata extends javax.swing.JInternalFrame {
         BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
         bi.setNorthPane(null);
     }
-    
+   
      public void displayData() {
 
         try {
@@ -64,6 +65,7 @@ public class allUserdata extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         viewTable = new javax.swing.JTable();
+        jButton4 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
         jPanel1.setLayout(null);
@@ -72,16 +74,17 @@ public class allUserdata extends javax.swing.JInternalFrame {
         jPanel2.setLayout(null);
 
         jPanel8.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel8.setLayout(null);
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("ALL USER DATA");
+        jLabel6.setText("ALL EMPLOYEE DATA");
         jPanel8.add(jLabel6);
-        jLabel6.setBounds(90, 20, 330, 40);
+        jLabel6.setBounds(20, 10, 470, 40);
 
         jPanel2.add(jPanel8);
-        jPanel8.setBounds(200, 20, 510, 70);
+        jPanel8.setBounds(200, 20, 510, 60);
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -105,7 +108,17 @@ public class allUserdata extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(viewTable);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(40, 150, 780, 360);
+        jScrollPane1.setBounds(40, 180, 780, 360);
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton4.setText("print");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4);
+        jButton4.setBounds(730, 140, 65, 25);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,8 +134,22 @@ public class allUserdata extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        MessageFormat head = new MessageFormat("EMPLOYEE");
+        MessageFormat FOOT = new MessageFormat("Page{0, number , integer}");
+
+        try {
+            viewTable.print(JTable.PrintMode.NORMAL, head, FOOT);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "cannot print");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
